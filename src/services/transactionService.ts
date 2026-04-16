@@ -11,4 +11,16 @@ export const transactionService = {
     transactions.push(transaction)
     return Promise.resolve(transaction)
   },
+
+  delete(id: string) {
+    transactions = transactions.filter(t => t.id !== id)
+    return Promise.resolve()
+  },
+  
+  update(updated: Transaction) {
+    transactions = transactions.map(t =>
+      t.id === updated.id ? updated : t
+    )
+    return Promise.resolve(updated)
+  }
 }
