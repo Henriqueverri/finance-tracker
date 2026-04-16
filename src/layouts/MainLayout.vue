@@ -1,5 +1,6 @@
 <script setup>
 import Sidebar from '@/components/layout/Sidebar.vue'
+import Header from '@/components/layout/Header.vue'
 </script>
 
 <template>
@@ -7,9 +8,7 @@ import Sidebar from '@/components/layout/Sidebar.vue'
     <Sidebar />
 
     <div class="flex flex-1 flex-col">
-      <header class="h-16 border-b flex items-center px-6">
-        Header
-      </header>
+      <Header />
 
       <main class="flex-1 p-6">
         <slot />
