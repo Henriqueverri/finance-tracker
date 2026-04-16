@@ -4,4 +4,5 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <HelloWorld />
+  <h1 class="text-3xl font-bold text-blue-500">aasdasqui</h1>
 </template>
