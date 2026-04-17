@@ -1,26 +1,26 @@
+import { http } from './http'
 import type { Transaction } from '@/types/transaction'
 
-let transactions: Transaction[] = []
-
 export const transactionService = {
-  getAll() {
-    return Promise.resolve(transactions)
+  async getAll() {
+    const { data } = await http.get('/transactions')
+    return data
   },
 
-  create(transaction: Transaction) {
-    transactions.push(transaction)
-    return Promise.resolve(transaction)
+  async create(transaction: Transaction) {
+    const { data } = await http.post('/transactions', transaction)
+    return data
   },
 
-  delete(id: string) {
-    transactions = transactions.filter(t => t.id !== id)
-    return Promise.resolve()
+  async delete(id: string) {
+    await http.delete(`/transactions/${id}`)
   },
-  
-  update(updated: Transaction) {
-    transactions = transactions.map(t =>
-      t.id === updated.id ? updated : t
+
+  async update(transaction: Transaction) {
+    const { data } = await http.put(
+      `/transactions/${transaction.id}`,
+      transaction
     )
-    return Promise.resolve(updated)
-  }
+    return data
+  },
 }
