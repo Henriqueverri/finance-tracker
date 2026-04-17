@@ -1,5 +1,5 @@
-import { http } from './http'
-import type { Transaction } from '@/types/transaction'
+import { http } from '@/services/http'
+import type { Transaction } from '@/modules/transactions/types/transaction'
 
 export const transactionService = {
   async getAll() {

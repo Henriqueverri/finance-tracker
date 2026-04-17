@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { Transaction, TransactionType } from '@/types/transaction'
+import type { Transaction, TransactionType } from '@/modules/transactions/types/transaction'
 
 const props = defineProps<{
   modelValue?: Transaction | null
