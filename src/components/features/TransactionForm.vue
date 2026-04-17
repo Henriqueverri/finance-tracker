@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Transaction, TransactionType } from '@/types/transaction'
+
+const props = defineProps<{
+  modelValue?: Transaction | null
+}>()
 
 const emit = defineEmits<{
   (e: 'submit', value: Omit<Transaction, 'id' | 'date'>): void
+  (e: 'update', value: Transaction): void
 }>()
 
 const form = ref({
@@ -13,8 +18,39 @@ const form = ref({
   category: '',
 })
 
+// quando entrar em modo edit
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (value) {
+      form.value = {
+        title: value.title,
+        amount: value.amount,
+        type: value.type,
+        category: value.category,
+      }
+    }
+  },
+  { immediate: true }
+)
+
 const handleSubmit = () => {
-  emit('submit', form.value)
+  if (props.modelValue) {
+    emit('update', {
+      ...props.modelValue,
+      ...form.value,
+    })
+  } else {
+    emit('submit', form.value)
+  }
+
+  // reset
+  form.value = {
+    title: '',
+    amount: 0,
+    type: 'expense',
+    category: '',
+  }
 }
 </script>
 
@@ -34,7 +70,7 @@ const handleSubmit = () => {
       @click="handleSubmit"
       class="bg-blue-500 text-white px-4 py-2 rounded"
     >
-      Add Transaction
+      {{ modelValue ? 'Update' : 'Add' }}
     </button>
   </div>
 </template>

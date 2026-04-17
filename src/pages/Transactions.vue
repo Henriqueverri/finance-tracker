@@ -8,6 +8,7 @@ import type { Transaction } from '@/types/transaction'
 const transactions = ref<Transaction[]>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
+const editing = ref<Transaction | null>(null)
 
 // load data
 const load = async () => {
@@ -58,13 +59,36 @@ const remove = async (id: string) => {
     loading.value = false
   }
 }
+
+const startEdit = (transaction: Transaction) => {
+  editing.value = transaction
+}
+
+const updateTransaction = async (updated: Transaction) => {
+  try {
+    loading.value = true
+
+    await transactionService.update(updated)
+    editing.value = null
+    await load()
+  } catch {
+    error.value = 'Failed to update transaction'
+  } finally {
+    loading.value = false
+  }
+}
+
 </script>
 
 <template>
   <div>
     <h1 class="text-2xl font-bold mb-4">Transactions</h1>
 
-    <TransactionForm @submit="addTransaction" />
+    <TransactionForm
+      :modelValue="editing"
+      @submit="addTransaction"
+      @update="updateTransaction"
+    />
 
     <div v-if="loading" class="mt-4">Loading...</div>
     <div v-if="error" class="text-red-500 mt-2">{{ error }}</div>
@@ -77,12 +101,20 @@ const remove = async (id: string) => {
       >
         <span>{{ t.title }} - {{ t.amount }}</span>
 
-        <button
-          @click="remove(t.id)"
-          class="text-red-500"
-        >
-          Delete
-        </button>
+        <div class="space-x-2">
+          <button
+            @click="startEdit(t)"
+            class="text-blue-500"
+          >
+            Edit
+          </button>
+          <button
+            @click="remove(t.id)"
+            class="text-red-500"
+          >
+            Delete
+          </button>
+        </div>
       </li>
     </ul>
   </div>
