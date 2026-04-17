@@ -16,26 +16,58 @@ export const useTransactionStore = defineStore('transaction', {
         this.error = null
 
         this.transactions = await transactionService.getAll()
-      } catch {
-        this.error = 'Failed to load transactions'
+      } catch (e: unknown) {
+        this.error = (e as any).message
       } finally {
         this.loading = false
       }
     },
 
     async create(transaction: Transaction) {
-      await transactionService.create(transaction)
-      await this.fetchAll()
+      try {
+        this.loading = true
+        this.error = null
+
+        const created = await transactionService.create(transaction)
+
+        this.transactions.push(created)
+      } catch (e: unknown) {
+        this.error = (e as any).message
+      } finally {
+        this.loading = false
+      }
     },
 
     async remove(id: string) {
-      await transactionService.delete(id)
-      await this.fetchAll()
+      try {
+        this.loading = true
+        this.error = null
+
+        await transactionService.delete(id)
+
+        this.transactions = this.transactions.filter(t => t.id !== id)
+      } catch (e: unknown) {
+        this.error = (e as any).message
+      } finally {
+        this.loading = false
+      }
     },
 
     async update(transaction: Transaction) {
-      await transactionService.update(transaction)
-      await this.fetchAll()
+      try {
+        this.loading = true
+        this.error = null
+
+        const updated = await transactionService.update(transaction)
+
+        this.transactions = this.transactions.map(t =>
+          t.id === updated.id ? updated : t
+        )
+      } catch (e: unknown) {
+        this.error = (e as any).message
+      } finally {
+        this.loading = false
+      }
     },
   },
 })
