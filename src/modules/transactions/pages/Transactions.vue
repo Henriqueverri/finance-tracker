@@ -34,6 +34,16 @@ const updateTransaction = async (transaction: Transaction) => {
 const remove = async (id: string) => {
   await store.remove(id)
 }
+
+const handleTypeChange = (event: Event) => {
+  const target = event.target as HTMLSelectElement
+  store.setTypeFilter(target.value as any)
+}
+
+const handleSearch = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  store.setSearchFilter(target.value)
+}
 </script>
 
 <template>
@@ -51,9 +61,27 @@ const remove = async (id: string) => {
       {{ store.error }}
     </div>
 
+    <div class="flex gap-2 mb-4">
+      <select
+        @change="handleTypeChange"
+        class="border p-2"
+      >
+        <option value="">All</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+
+      <input
+        type="text"
+        placeholder="Search..."
+        @input="handleSearch"
+        class="border p-2 flex-1"
+      />
+    </div>
+
     <ul class="space-y-2 mt-6">
       <li
-        v-for="t in store.transactions"
+        v-for="t in store.filteredTransactions"
         :key="t.id"
         class="p-4 border rounded flex justify-between"
       >

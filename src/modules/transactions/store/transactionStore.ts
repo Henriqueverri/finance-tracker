@@ -7,6 +7,10 @@ export const useTransactionStore = defineStore('transaction', {
     transactions: [] as Transaction[],
     loading: false,
     error: null as string | null,
+    filters: {
+      type: '' as 'income' | 'expense' | '',
+      search: '',
+    },
   }),
 
   actions: {
@@ -69,6 +73,14 @@ export const useTransactionStore = defineStore('transaction', {
         this.loading = false
       }
     },
+
+    setTypeFilter(type: 'income' | 'expense' | '') {
+      this.filters.type = type
+    },
+
+    setSearchFilter(search: string) {
+      this.filters.search = search
+    },
   },
 
   getters: {
@@ -84,6 +96,18 @@ export const useTransactionStore = defineStore('transaction', {
 
     balance(): number {
       return this.totalIncome - this.totalExpense
+    },
+
+    filteredTransactions: (state) => {
+      return state.transactions.filter((t) => {
+        const matchesType =
+          !state.filters.type || t.type === state.filters.type
+
+        const matchesSearch =
+          t.title.toLowerCase().includes(state.filters.search.toLowerCase())
+
+        return matchesType && matchesSearch
+      })
     },
   }
 })
