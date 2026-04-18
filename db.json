@@ -1,21 +1,4 @@
 {
-  "transactions": [
-    {
-      "id": "tUhwuob5sFU",
-      "title": "Teste 1",
-      "amount": 10,
-      "type": "expense",
-      "category": "Categoria 1",
-      "date": "2026-04-17T18:07:29.271Z"
-    },
-    {
-      "id": "dX4iouexO5c",
-      "title": "Teste 2",
-      "amount": 20,
-      "type": "expense",
-      "category": "",
-      "date": "2026-04-17T18:07:50.002Z"
-    }
-  ],
+  "transactions": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

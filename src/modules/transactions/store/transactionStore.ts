@@ -70,4 +70,20 @@ export const useTransactionStore = defineStore('transaction', {
       }
     },
   },
+
+  getters: {
+    totalIncome: (state) =>
+      state.transactions
+        .filter(t => t.type === 'income')
+        .reduce((acc, t) => acc + t.amount, 0),
+
+    totalExpense: (state) =>
+      state.transactions
+        .filter(t => t.type === 'expense')
+        .reduce((acc, t) => acc + t.amount, 0),
+
+    balance(): number {
+      return this.totalIncome - this.totalExpense
+    },
+  }
 })
