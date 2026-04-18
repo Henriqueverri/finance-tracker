@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import type { Transaction, TransactionType } from '@/modules/transactions/types/transaction'
+import { useCategoryStore } from '@/modules/categories/store/categoryStore'
 
 const props = defineProps<{
   modelValue?: Transaction | null
@@ -17,6 +18,8 @@ const form = ref({
   type: 'expense' as TransactionType,
   category: '',
 })
+
+const categoryStore = useCategoryStore()
 
 // quando entrar em modo edit
 watch(
@@ -52,6 +55,10 @@ const handleSubmit = () => {
     category: '',
   }
 }
+
+onMounted(() => {
+  categoryStore.fetchAll()
+})
 </script>
 
 <template>
@@ -62,6 +69,18 @@ const handleSubmit = () => {
     <select v-model="form.type" class="border p-2 w-full">
       <option value="income">Income</option>
       <option value="expense">Expense</option>
+    </select>
+
+    <select v-model="form.category" class="border p-2 w-full">
+      <option value="">Select category</option>
+
+      <option
+        v-for="c in categoryStore.categories"
+        :key="c.id"
+        :value="c.name"
+      >
+        {{ c.name }}
+      </option>
     </select>
 
     <input v-model="form.category" placeholder="Category" class="border p-2 w-full" />

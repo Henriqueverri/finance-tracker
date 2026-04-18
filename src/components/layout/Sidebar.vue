@@ -7,6 +7,7 @@ const router = useRouter()
 const menu = [
   { name: 'Dashboard', path: '/' },
   { name: 'Transactions', path: '/transactions' },
+  { name: 'Categories', path: '/categories' },
 ]
 
 const isActive = (path: string) => route.path === path
