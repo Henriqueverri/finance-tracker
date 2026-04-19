@@ -1,9 +1,7 @@
-<script setup>
-import MainLayout from '@/layouts/MainLayout.vue'
+<script setup lang="ts">
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <MainLayout>
-    <router-view />
-  </MainLayout>
+  <HelloWorld />
 </template>
