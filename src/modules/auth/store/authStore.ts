@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
   }),
 
   actions: {
-    login(email: string, password: string) {
+    login(email: string) {
       // fake login
       this.token = 'fake-jwt-token'
       this.user = {

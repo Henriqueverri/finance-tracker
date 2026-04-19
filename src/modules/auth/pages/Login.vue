@@ -10,7 +10,7 @@ const auth = useAuthStore()
 const router = useRouter()
 
 const handleLogin = () => {
-  auth.login(email.value, password.value)
+  auth.login(email.value)
   router.push('/')
 }
 </script>
