@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useTransactionStore } from '@/modules/transactions/store/transactionStore'
 import { formatCurrency } from '@/utils/format'
+import TransactionChart from '@/modules/transactions/components/TransactionChart.vue'
 
 const store = useTransactionStore()
 
@@ -42,6 +43,9 @@ onMounted(() => {
         </p>
       </div>
 
+    </div>
+    <div class="mt-6">
+      <TransactionChart />
     </div>
   </div>
 </template>
