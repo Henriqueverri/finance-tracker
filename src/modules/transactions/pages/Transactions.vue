@@ -64,7 +64,9 @@ const handleCategoryChange = (event: Event) => {
       @update="updateTransaction"
     />
 
-    <div v-if="store.loading" class="mt-4">Loading...</div>
+    <div class="text-center mt-4 animate-pulse">
+      Loading data...
+    </div>
     <div v-if="store.error" class="text-red-500 mt-2">
       {{ store.error }}
     </div>
@@ -100,6 +102,10 @@ const handleCategoryChange = (event: Event) => {
         @input="handleSearch"
         class="border p-2 flex-1"
       />
+    </div>
+
+    <div v-if="!store.loading && !store.filteredTransactions.length" class="text-center text-gray-500 mt-10">
+      No transactions found
     </div>
 
     <ul class="space-y-2 mt-6">

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { transactionService } from '../services/transactionService'
 import type { Transaction } from '../types/transaction'
+import { useToast } from 'vue-toastification'
 
 export const useTransactionStore = defineStore('transaction', {
   state: () => ({
@@ -22,6 +23,7 @@ export const useTransactionStore = defineStore('transaction', {
 
         this.transactions = await transactionService.getAll()
       } catch (e: unknown) {
+        toast.error(this.error || 'Something went wrong')
         this.error = (e as any).message
       } finally {
         this.loading = false
@@ -34,9 +36,11 @@ export const useTransactionStore = defineStore('transaction', {
         this.error = null
 
         const created = await transactionService.create(transaction)
+        toast.success('Transaction created successfully')
 
         this.transactions.push(created)
       } catch (e: unknown) {
+        toast.error(this.error || 'Something went wrong')
         this.error = (e as any).message
       } finally {
         this.loading = false
@@ -49,9 +53,11 @@ export const useTransactionStore = defineStore('transaction', {
         this.error = null
 
         await transactionService.delete(id)
+        toast.success('Transaction removed')
 
         this.transactions = this.transactions.filter(t => t.id !== id)
       } catch (e: unknown) {
+        toast.error(this.error || 'Something went wrong')
         this.error = (e as any).message
       } finally {
         this.loading = false
@@ -64,11 +70,13 @@ export const useTransactionStore = defineStore('transaction', {
         this.error = null
 
         const updated = await transactionService.update(transaction)
+        toast.success('Transaction updated')
 
         this.transactions = this.transactions.map(t =>
           t.id === updated.id ? updated : t
         )
       } catch (e: unknown) {
+        toast.error(this.error || 'Something went wrong')
         this.error = (e as any).message
       } finally {
         this.loading = false
@@ -119,3 +127,5 @@ export const useTransactionStore = defineStore('transaction', {
     },
   }
 })
+
+const toast = useToast()

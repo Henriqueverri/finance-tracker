@@ -1,22 +1,5 @@
 {
-  "transactions": [
-    {
-      "id": "v72MUOGZrrA",
-      "title": "Bateria",
-      "amount": 199,
-      "type": "expense",
-      "category": "Veículo",
-      "date": "2026-04-18T23:58:55.602Z"
-    },
-    {
-      "id": "VWIOO3TnErs",
-      "title": "salário",
-      "amount": 2000,
-      "type": "income",
-      "category": "Salário",
-      "date": "2026-04-18T23:59:52.745Z"
-    }
-  ],
+  "transactions": [],
   "categories": [
     {
       "id": "YmE0nHRsSg0",
