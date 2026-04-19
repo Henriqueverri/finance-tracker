@@ -3,13 +3,16 @@ import { ref, onMounted } from 'vue'
 import { useTransactionStore } from '@/modules/transactions/store/transactionStore'
 import TransactionForm from '../features/TransactionForm.vue'
 import type { Transaction } from '@/modules/transactions/types/transaction'
+import { useCategoryStore } from '@/modules/categories/store/categoryStore'
 
 const store = useTransactionStore()
+const categoryStore = useCategoryStore()
 
 const editing = ref<Transaction | null>(null)
 
 onMounted(() => {
   store.fetchAll()
+  categoryStore.fetchAll()
 })
 
 const startEdit = (transaction: Transaction) => {
@@ -44,6 +47,11 @@ const handleSearch = (event: Event) => {
   const target = event.target as HTMLInputElement
   store.setSearchFilter(target.value)
 }
+
+const handleCategoryChange = (event: Event) => {
+  const target = event.target as HTMLSelectElement
+  store.setCategoryFilter(target.value)
+}
 </script>
 
 <template>
@@ -69,6 +77,21 @@ const handleSearch = (event: Event) => {
         <option value="">All</option>
         <option value="income">Income</option>
         <option value="expense">Expense</option>
+      </select>
+
+      <select
+        @change="handleCategoryChange"
+        class="border p-2"
+      >
+        <option value="">All categories</option>
+
+        <option
+          v-for="c in categoryStore.categories"
+          :key="c.id"
+          :value="c.name"
+        >
+          {{ c.name }}
+        </option>
       </select>
 
       <input

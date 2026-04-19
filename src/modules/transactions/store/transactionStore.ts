@@ -10,6 +10,7 @@ export const useTransactionStore = defineStore('transaction', {
     filters: {
       type: '' as 'income' | 'expense' | '',
       search: '',
+      category: '',
     },
   }),
 
@@ -81,6 +82,10 @@ export const useTransactionStore = defineStore('transaction', {
     setSearchFilter(search: string) {
       this.filters.search = search
     },
+
+    setCategoryFilter(category: string) {
+      this.filters.category = category
+    },
   },
 
   getters: {
@@ -106,7 +111,10 @@ export const useTransactionStore = defineStore('transaction', {
         const matchesSearch =
           t.title.toLowerCase().includes(state.filters.search.toLowerCase())
 
-        return matchesType && matchesSearch
+        const matchesCategory =
+          !state.filters.category || t.category === state.filters.category
+
+        return matchesType && matchesSearch && matchesCategory
       })
     },
   }

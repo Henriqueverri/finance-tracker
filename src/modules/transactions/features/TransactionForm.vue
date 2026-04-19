@@ -83,8 +83,6 @@ onMounted(() => {
       </option>
     </select>
 
-    <input v-model="form.category" placeholder="Category" class="border p-2 w-full" />
-
     <button
       @click="handleSubmit"
       class="bg-blue-500 text-white px-4 py-2 rounded"

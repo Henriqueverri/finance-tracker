@@ -1,30 +1,35 @@
 {
   "transactions": [
     {
-      "id": "6mstFhuCwDc",
-      "title": "Bateria de moto",
+      "id": "v72MUOGZrrA",
+      "title": "Bateria",
       "amount": 199,
       "type": "expense",
       "category": "Veículo",
-      "date": "2026-04-18T23:33:37.691Z"
+      "date": "2026-04-18T23:58:55.602Z"
     },
     {
-      "id": "ue7quseeBdk",
-      "title": "Sabonete",
-      "amount": 20,
-      "type": "expense",
-      "category": "Higiene",
-      "date": "2026-04-18T23:36:05.009Z"
-    },
-    {
-      "id": "CKS7RyNB8QQ",
-      "title": "Salário",
+      "id": "VWIOO3TnErs",
+      "title": "salário",
       "amount": 2000,
       "type": "income",
       "category": "Salário",
-      "date": "2026-04-18T23:36:41.913Z"
+      "date": "2026-04-18T23:59:52.745Z"
     }
   ],
-  "categories": [],
+  "categories": [
+    {
+      "id": "YmE0nHRsSg0",
+      "name": "Salário"
+    },
+    {
+      "id": "OrdR7sx0Euk",
+      "name": "Veículo"
+    },
+    {
+      "id": "JdQYg9VhTtg",
+      "name": "Higiene"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
